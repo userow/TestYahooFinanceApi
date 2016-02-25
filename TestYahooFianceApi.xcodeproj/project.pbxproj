@@ -14,7 +14,7 @@
 		CDE277251C7D215A000B5630 /* YFInsexesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDE277231C7D215A000B5630 /* YFInsexesTableViewController.xib */; };
 		CDE277291C7D3191000B5630 /* YFApiCalls.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE277281C7D3191000B5630 /* YFApiCalls.m */; };
 		CDE2772C1C7D3225000B5630 /* YFQuote.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE2772B1C7D3225000B5630 /* YFQuote.m */; };
-		CDE2772F1C7D3318000B5630 /* YFBaseResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE2772E1C7D3318000B5630 /* YFBaseResponse.m */; };
+		CDE7F3951C84589F0097FFF5 /* YFLaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDE7F3941C84589F0097FFF5 /* YFLaunchScreen.xib */; };
 		D2438D6270948ACADBFDF501 /* Pods_TestYahooFianceApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F51816FE21A54681CE871D9 /* Pods_TestYahooFianceApi.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -35,8 +35,9 @@
 		CDE277281C7D3191000B5630 /* YFApiCalls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YFApiCalls.m; sourceTree = "<group>"; };
 		CDE2772A1C7D3225000B5630 /* YFQuote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YFQuote.h; sourceTree = "<group>"; };
 		CDE2772B1C7D3225000B5630 /* YFQuote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YFQuote.m; sourceTree = "<group>"; };
-		CDE2772D1C7D3318000B5630 /* YFBaseResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YFBaseResponse.h; sourceTree = "<group>"; };
-		CDE2772E1C7D3318000B5630 /* YFBaseResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YFBaseResponse.m; sourceTree = "<group>"; };
+		CDE7F3941C84589F0097FFF5 /* YFLaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YFLaunchScreen.xib; sourceTree = "<group>"; };
+		CDE7F3991C846F330097FFF5 /* YFPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YFPrefixHeader.pch; sourceTree = "<group>"; };
+		CDE7F39A1C8475A20097FFF5 /* Tasks.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Tasks.rtf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +104,10 @@
 		CDE276FB1C7D1568000B5630 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CDE7F3941C84589F0097FFF5 /* YFLaunchScreen.xib */,
 				CDE276FC1C7D1568000B5630 /* main.m */,
+				CDE7F3991C846F330097FFF5 /* YFPrefixHeader.pch */,
+				CDE7F39A1C8475A20097FFF5 /* Tasks.rtf */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -125,8 +129,6 @@
 				CDE277281C7D3191000B5630 /* YFApiCalls.m */,
 				CDE2772A1C7D3225000B5630 /* YFQuote.h */,
 				CDE2772B1C7D3225000B5630 /* YFQuote.m */,
-				CDE2772D1C7D3318000B5630 /* YFBaseResponse.h */,
-				CDE2772E1C7D3318000B5630 /* YFBaseResponse.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -193,6 +195,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CDE277251C7D215A000B5630 /* YFInsexesTableViewController.xib in Resources */,
+				CDE7F3951C84589F0097FFF5 /* YFLaunchScreen.xib in Resources */,
 				CDE2770B1C7D1568000B5630 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -254,7 +257,6 @@
 			files = (
 				CDE277001C7D1568000B5630 /* YFAppDelegate.m in Sources */,
 				CDE276FD1C7D1568000B5630 /* main.m in Sources */,
-				CDE2772F1C7D3318000B5630 /* YFBaseResponse.m in Sources */,
 				CDE277241C7D215A000B5630 /* YFInsexesTableViewController.m in Sources */,
 				CDE2772C1C7D3225000B5630 /* YFQuote.m in Sources */,
 				CDE277291C7D3191000B5630 /* YFApiCalls.m in Sources */,
@@ -350,6 +352,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/YFPrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
 					"${PODS_ROOT}/Headers/Public/AFNetworking/**",
 					"${PODS_ROOT}/Headers/Public/ISO8601DateFormatterValueTransformer/**",
@@ -373,6 +377,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/YFPrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
 					"${PODS_ROOT}/Headers/Public/AFNetworking/**",
 					"${PODS_ROOT}/Headers/Public/ISO8601DateFormatterValueTransformer/**",

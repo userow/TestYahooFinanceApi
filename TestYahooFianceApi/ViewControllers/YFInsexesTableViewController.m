@@ -6,7 +6,11 @@
 //  Copyright © 2016 Pavel Wasilenko. All rights reserved.
 //
 
+static NSString *quoteCellReuseIdentifier = @"YFQuoteCellReuseIdentifier";
+
 #import "YFInsexesTableViewController.h"
+
+#import "YFApiCalls.h"
 
 @interface YFInsexesTableViewController ()
 
@@ -17,11 +21,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[YFApiCalls sharedCalls] getDefaultQuotes];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:quoteCellReuseIdentifier];
     
     //Каждая ячейка должна содержать имя индекса, информацию о его текущей цене, динамике, цене закрытия, самый низкий и высокий показатель в текущий день торгов.
 }
@@ -43,15 +50,18 @@
     return 0;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:quoteCellReuseIdentifier];
     
-    // Configure the cell...
+    if (!cell)
+        cell = [UITableViewCell new];
+    
+    
     
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.

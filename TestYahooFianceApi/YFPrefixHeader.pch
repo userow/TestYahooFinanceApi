@@ -1,0 +1,19 @@
+//
+//  YFPrefixHeader.pch
+//  TestYahooFianceApi
+//
+//  Created by Pavel Wasilenko on 160229.
+//  Copyright © 2016 Pavel Wasilenko. All rights reserved.
+//
+
+#ifndef YFPrefixHeader_pch
+#define YFPrefixHeader_pch
+
+#import <Foundation/Foundation.h>
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* YFPrefixHeader_pch */

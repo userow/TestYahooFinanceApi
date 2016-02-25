@@ -14,11 +14,7 @@
 
 /*
  "list" : {
- "meta" : {
- "type" : "resource-list",
- "start" : 0,
- "count" : 3
- },
+ "meta" : { "type" : "resource-list", "start" : 0, "count" : 3 },
  "resources" : [
  {
  "resource" : {
@@ -43,12 +39,25 @@
  }
  } 
  ]
- */
+ 
 
-@property (nonatomic, strong) NSString *infoId;
-@property (nonatomic, strong) NSString *limit;
-@property (nonatomic, strong) NSString *offset;
-@property (nonatomic, strong) NSString *myNews;
+"change" : "-2.189995",
+"chg_percent" : "-2.260523",
+"day_high" : "96.500000",
+"day_low" : "94.550003",
+"name" : "Apple Inc.",
+"price" : "94.690002",
+"symbol" : "AAPL",
+*/
+
+@property (nonatomic, strong) NSNumber *change;
+@property (nonatomic, strong) NSNumber *changePercent;
+@property (nonatomic, strong) NSNumber *dayHigh;
+@property (nonatomic, strong) NSNumber *dayLow;
+@property (nonatomic, strong) NSNumber *price;
+
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *symbol;
 
 + (RKObjectMapping *)requestMapping;
 + (RKObjectMapping *)responseMapping;
