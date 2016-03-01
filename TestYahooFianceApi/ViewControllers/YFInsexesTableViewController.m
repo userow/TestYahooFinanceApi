@@ -21,7 +21,12 @@ static NSString *quoteCellReuseIdentifier = @"YFQuoteCellReuseIdentifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [[YFApiCalls sharedCalls] getDefaultQuotes];
+    [[YFApiCalls sharedCalls] getDefaultQuotesSuccess:^(id object) {
+        ;
+    } failure:^(NSError *error) {
+        ;
+    }];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     

@@ -11,6 +11,14 @@
 
 @implementation YFQuote
 
++(instancetype)quoteWithSymbolString:(NSString *)symbolString;
+{
+    YFQuote * quote = [YFQuote new];
+    quote.symbolString = symbolString;
+    
+    return quote;
+}
+
 + (RKObjectMapping *)requestMapping; {
     return [[YFQuote responseMapping] inverseMapping];
 }
@@ -25,7 +33,8 @@
                              @"resource.fields.day_low" : @"dayLow",
                              @"resource.fields.price" : @"price",
                              @"resource.fields.symbol" : @"symbol",
-                             @"resource.fields.name" : @"name"
+                             @"resource.fields.name" : @"name",
+                             @"symbolString" : @"symbolString"
                                                  }];
     
     return quoteMaping;

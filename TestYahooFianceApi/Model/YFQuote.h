@@ -59,6 +59,10 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *symbol;
 
+@property (nonatomic, strong) NSString *symbolString;
+
++(instancetype)quoteWithSymbolString:(NSString *)symbolString;
+
 + (RKObjectMapping *)requestMapping;
 + (RKObjectMapping *)responseMapping;
 

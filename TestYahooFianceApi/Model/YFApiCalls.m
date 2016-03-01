@@ -15,7 +15,6 @@ static NSString *serverUrl = @"http://finance.yahoo.com/webservice/v1/";
 @interface YFApiCalls ()
 
 @property (nonatomic, strong) RKObjectManager *objectManager;
-@property (nonatomic, copy)   receivedBlock complitionBlock;
 
 @property (atomic, strong) __block NSArray *defaultQuotes;
 
@@ -72,32 +71,42 @@ static NSString *serverUrl = @"http://finance.yahoo.com/webservice/v1/";
 
 #pragma mark - Public
 
-- (void) getDefaultQuotes;
+- (void) getDefaultQuotesSuccess:(YFSuccessBlock)success failure:(YFFailureBlock)failure;
 {
     NSArray *sym = [@"LNKD,AMZN,NFLX,FB,TWTR,YHOO,AAPL,INTC,GOOG" componentsSeparatedByString:@","];
     
-    [self getQuotesBySymbols:sym];
+    [self getQuotesBySymbols:sym success:success failure:failure];
 }
 
-- (void) getQuotesBySymbols:(NSArray *)symbols;
+- (void) getQuotesBySymbols:(NSArray *)symbols success:(YFSuccessBlock)success failure:(YFFailureBlock)failure;
 {
     if (!(symbols && symbols.count)) return;
     
-    NSString *requestPathString = [NSString stringWithFormat:@"symbols/:quotes/quote", [symbols componentsJoinedByString:@","]];
-    
-    
     NSDictionary *requestParametersDic = @{@"format":@"json", @"view" : @"detail", };
     
-    [self.objectManager getObjectsAtPath:requestPathString
-                              parameters:requestParametersDic
-                                 success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                                     RKLogInfo(@"Load collection of quotes: %@", mappingResult.array);
-                                 } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                                     RKLogError(@"Operation failed with error: %@", error);
-                                 }];
+//    [self.objectManager getObjectsAtPath:requestPathString
+//                              parameters:requestParametersDic
+//                                 success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+//                                     RKLogInfo(@"Load collection of quotes: %@", mappingResult.array);
+//                                 } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+//                                     RKLogError(@"Operation failed with error: %@", error);
+//                                 }];
+    
+    
+    // Get a user by user name.
+    [[YFApiCalls sharedCalls].objectManager getObject:[YFQuote quoteWithSymbolString:[symbols componentsJoinedByString:@","]] path:nil parameters:requestParametersDic
+                                       success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                           // Do something with mappingResult.array
+                                           
+                                           RKLogInfo(@"Load collection of quotes: %@", mappingResult.array);
+                                       }
+                                       failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                           // Do something
+                                           RKLogError(@"Operation failed with error: %@", error);
+                                       }];
 }
 
-- (void) getSymbolForName:(NSString *)name;
+- (void) getSymbolForName:(NSString *)name success:(YFSuccessBlock)success failure:(YFFailureBlock)failure;
 {
     
     

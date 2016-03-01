@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void (^receivedBlock)(NSDictionary *receivedDict);
 typedef void (^YFSuccessBlock)(id object);
 typedef void (^YFFailureBlock)(NSError *error);
 
@@ -17,8 +16,8 @@ typedef void (^YFFailureBlock)(NSError *error);
 
 + (YFApiCalls *)sharedCalls;
 
-- (void) getDefaultQuotes;
-- (void) getQuotesBySymbols:(NSArray *)symbols;
-- (void) getSymbolForName:(NSString *)name;
+- (void) getDefaultQuotesSuccess:(YFSuccessBlock)success failure:(YFFailureBlock)failure;
+- (void) getQuotesBySymbols:(NSArray *)symbols success:(YFSuccessBlock)success failure:(YFFailureBlock)failure;
+- (void) getSymbolForName:(NSString *)name success:(YFSuccessBlock)success failure:(YFFailureBlock)failure;
 
 @end
