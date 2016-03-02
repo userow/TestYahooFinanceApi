@@ -10,11 +10,11 @@
 		CDC518D71C88031600B27A25 /* YFEmptySearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC518D51C88031600B27A25 /* YFEmptySearchView.m */; };
 		CDC518D81C88031600B27A25 /* YFEmptySearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDC518D61C88031600B27A25 /* YFEmptySearchView.xib */; };
 		CDC518DB1C8803F200B27A25 /* YFQuotesSearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC518DA1C8803F200B27A25 /* YFQuotesSearchResultsViewController.m */; };
+		CDC518DD1C88365600B27A25 /* YFInsexesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDC518DC1C88365600B27A25 /* YFInsexesTableViewController.xib */; };
 		CDE276FD1C7D1568000B5630 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE276FC1C7D1568000B5630 /* main.m */; };
 		CDE277001C7D1568000B5630 /* YFAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE276FF1C7D1568000B5630 /* YFAppDelegate.m */; };
 		CDE2770B1C7D1568000B5630 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDE2770A1C7D1568000B5630 /* Assets.xcassets */; };
 		CDE277241C7D215A000B5630 /* YFInsexesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE277221C7D215A000B5630 /* YFInsexesTableViewController.m */; };
-		CDE277251C7D215A000B5630 /* YFInsexesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDE277231C7D215A000B5630 /* YFInsexesTableViewController.xib */; };
 		CDE277291C7D3191000B5630 /* YFApiCalls.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE277281C7D3191000B5630 /* YFApiCalls.m */; };
 		CDE2772C1C7D3225000B5630 /* YFQuote.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE2772B1C7D3225000B5630 /* YFQuote.m */; };
 		CDE7F3951C84589F0097FFF5 /* YFLaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDE7F3941C84589F0097FFF5 /* YFLaunchScreen.xib */; };
@@ -30,6 +30,7 @@
 		CDC518D61C88031600B27A25 /* YFEmptySearchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YFEmptySearchView.xib; sourceTree = "<group>"; };
 		CDC518D91C8803F200B27A25 /* YFQuotesSearchResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YFQuotesSearchResultsViewController.h; sourceTree = "<group>"; };
 		CDC518DA1C8803F200B27A25 /* YFQuotesSearchResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YFQuotesSearchResultsViewController.m; sourceTree = "<group>"; };
+		CDC518DC1C88365600B27A25 /* YFInsexesTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YFInsexesTableViewController.xib; sourceTree = "<group>"; };
 		CDE276F81C7D1568000B5630 /* TestYahooFianceApi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestYahooFianceApi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDE276FC1C7D1568000B5630 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CDE276FE1C7D1568000B5630 /* YFAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YFAppDelegate.h; sourceTree = "<group>"; };
@@ -38,7 +39,6 @@
 		CDE2770F1C7D1568000B5630 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CDE277211C7D215A000B5630 /* YFInsexesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YFInsexesTableViewController.h; sourceTree = "<group>"; };
 		CDE277221C7D215A000B5630 /* YFInsexesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YFInsexesTableViewController.m; sourceTree = "<group>"; };
-		CDE277231C7D215A000B5630 /* YFInsexesTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YFInsexesTableViewController.xib; sourceTree = "<group>"; };
 		CDE277271C7D3191000B5630 /* YFApiCalls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YFApiCalls.h; sourceTree = "<group>"; };
 		CDE277281C7D3191000B5630 /* YFApiCalls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YFApiCalls.m; sourceTree = "<group>"; };
 		CDE2772A1C7D3225000B5630 /* YFQuote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YFQuote.h; sourceTree = "<group>"; };
@@ -125,7 +125,7 @@
 			children = (
 				CDE277211C7D215A000B5630 /* YFInsexesTableViewController.h */,
 				CDE277221C7D215A000B5630 /* YFInsexesTableViewController.m */,
-				CDE277231C7D215A000B5630 /* YFInsexesTableViewController.xib */,
+				CDC518DC1C88365600B27A25 /* YFInsexesTableViewController.xib */,
 				CDC518D91C8803F200B27A25 /* YFQuotesSearchResultsViewController.h */,
 				CDC518DA1C8803F200B27A25 /* YFQuotesSearchResultsViewController.m */,
 				CDC518D41C88031600B27A25 /* YFEmptySearchView.h */,
@@ -207,7 +207,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CDE277251C7D215A000B5630 /* YFInsexesTableViewController.xib in Resources */,
+				CDC518DD1C88365600B27A25 /* YFInsexesTableViewController.xib in Resources */,
 				CDC518D81C88031600B27A25 /* YFEmptySearchView.xib in Resources */,
 				CDE7F3951C84589F0097FFF5 /* YFLaunchScreen.xib in Resources */,
 				CDE2770B1C7D1568000B5630 /* Assets.xcassets in Resources */,

@@ -14,7 +14,7 @@
 #import "YFQuote.h"
 
 #import <SVProgressHUD.h>
-#import <UIView+AutoLayout.h>
+//#import <UIView+AutoLayout.h>
 
 @interface YFInsexesTableViewController ()
 <UITableViewDelegate,
@@ -57,8 +57,8 @@ UISearchControllerDelegate> {
     [self registerForKeyboardNotifications];
 
 //    self.searchController.searchBar becomeFirstResponder
-    self.searchController.active = YES;
-    self.searchController.active = NO;
+//    self.searchController.active = YES;
+//    self.searchController.active = NO;
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
@@ -106,13 +106,12 @@ UISearchControllerDelegate> {
     [self.searchContainerView addSubview:self.searchController.searchBar];
     
     self.definesPresentationContext = YES;
-//    [self.searchContainerView bringSubviewToFront:self.searchController.searchBar];
-//    self.searchController.searchBar.clipsToBounds = YES;
+    [self.searchContainerView bringSubviewToFront:self.searchController.searchBar];
+    self.searchController.searchBar.clipsToBounds = YES;
     
-//    [self.searchController.searchBar sizeToFit];
-//    [self.searchController.searchBar autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
+    [self.searchController.searchBar sizeToFit];
+    [self.searchController.searchBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     
-
     
     self.resultsTableController.tableView.delegate = self;
     self.searchController.dimsBackgroundDuringPresentation = NO;
