@@ -125,8 +125,21 @@ static NSString *serverUrl = @"http://finance.yahoo.com/webservice/v1/";
 
 - (void) getSymbolForName:(NSString *)name success:(YFSuccessBlock)success failure:(YFFailureBlock)failure;
 {
+    NSArray *sym = @[name];
     
-    
+    [self getQuotesBySymbols:sym success:^(id object) {
+        //        __strong typeof(self) strongSelf = weakSelf;
+        //        strongSelf.defaultQuotes = (NSArray *)object;
+        
+        if (success) {
+            success(object);
+        }
+    } failure:failure];
+}
+
+- (void)cancelRequests;
+{
+    [self.objectManager cancelAllObjectRequestOperationsWithMethod:RKRequestMethodGET matchingPathPattern:@"symbols/:symbolString/quote"];
 }
 
 
