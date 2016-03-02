@@ -23,4 +23,6 @@ typedef void (^YFFailureBlock)(NSError *error);
 - (void) getQuotesBySymbols:(NSArray *)symbols success:(YFSuccessBlock)success failure:(YFFailureBlock)failure;
 - (void) getSymbolForName:(NSString *)name success:(YFSuccessBlock)success failure:(YFFailureBlock)failure;
 
+- (void)cancelRequests;
+
 @end

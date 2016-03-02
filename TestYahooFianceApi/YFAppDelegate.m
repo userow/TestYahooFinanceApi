@@ -8,7 +8,7 @@
 
 #import "YFAppDelegate.h"
 #import "YFInsexesTableViewController.h"
-#import <AFNetworkActivityLogger/AFNetworkActivityLogger.h>
+//#import <AFNetworkActivityLogger/AFNetworkActivityLogger.h>
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
 

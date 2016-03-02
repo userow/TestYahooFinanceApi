@@ -347,7 +347,7 @@ UISearchControllerDelegate> {
     NSString *searchText = [searchController.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSString *strippedString = [searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
-    if (strippedString.length > 0) {
+    if (strippedString.length > 1) {
         
         [self getSearchResults:searchText shouldReload:YES];
     } else {
@@ -374,12 +374,24 @@ UISearchControllerDelegate> {
 }
 
 - (void)getSearchResults:(NSString*)searchString shouldReload:(BOOL)shouldReload {
+    [[YFApiCalls sharedCalls] cancelRequests];
+    
     YFQuotesSearchResultsViewController *tableController = (YFQuotesSearchResultsViewController *)self.searchController.searchResultsController;
     
     tableController.searching = NO;
     
-#warning !!! Поставить обработку в ApiCalls
-//    [self sendSearchResuts:[_controller searchByString:searchString ]];
+//#warning !!! Поставить обработку в ApiCalls
+    __weak typeof(self) weakSelf = self;
+    
+    [[YFApiCalls sharedCalls] getSymbolForName:searchString
+    success:^(id object) {
+        __strong typeof(self) strongSelf = weakSelf;
+        [strongSelf sendSearchResuts:[NSMutableArray arrayWithArray:(NSArray *)object]];
+    } failure:^(NSError *error) {
+        
+    }];
+    
+//    [self sendSearchResuts:[tableController searchByString:searchString ]];
 }
 
 - (void)sendSearchResuts:(NSMutableArray *)searchResults {
