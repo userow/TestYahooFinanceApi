@@ -66,4 +66,6 @@
 + (RKObjectMapping *)requestMapping;
 + (RKObjectMapping *)responseMapping;
 
+- (NSMutableAttributedString*)cellFormatedRepresentation;
+
 @end

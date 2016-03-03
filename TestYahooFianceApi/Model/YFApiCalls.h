@@ -13,8 +13,11 @@ typedef void (^YFFailureBlock)(NSError *error);
 
 @interface YFApiCalls : NSObject
 
+@property (atomic, strong) __block NSArray *defaultQuotes;
 
 + (YFApiCalls *)sharedCalls;
+
+- (instancetype)init NS_UNAVAILABLE;
 
 - (void) getDefaultQuotesSuccess:(YFSuccessBlock)success failure:(YFFailureBlock)failure;
 - (void) getQuotesBySymbols:(NSArray *)symbols success:(YFSuccessBlock)success failure:(YFFailureBlock)failure;

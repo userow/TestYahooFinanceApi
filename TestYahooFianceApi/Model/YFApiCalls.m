@@ -16,8 +16,6 @@ static NSString *serverUrl = @"http://finance.yahoo.com/webservice/v1/";
 
 @property (nonatomic, strong) RKObjectManager *objectManager;
 
-@property (atomic, strong) __block NSArray *defaultQuotes;
-
 @end
 
 @implementation YFApiCalls
@@ -27,7 +25,7 @@ static NSString *serverUrl = @"http://finance.yahoo.com/webservice/v1/";
     static YFApiCalls *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedInstance = [[YFApiCalls alloc] init];
+        sharedInstance = [[YFApiCalls alloc] initSingle];
     });
     
     return sharedInstance;
@@ -35,7 +33,8 @@ static NSString *serverUrl = @"http://finance.yahoo.com/webservice/v1/";
 
 #pragma mark - Initialization
 
-- (instancetype)init
+
+- (instancetype)initSingle
 {
     self = [super init];
     if (self)
@@ -43,6 +42,8 @@ static NSString *serverUrl = @"http://finance.yahoo.com/webservice/v1/";
         NSURL *baseUrl = [NSURL URLWithString:serverUrl];
         self.objectManager = [RKObjectManager managerWithBaseURL:baseUrl];
         [self setupDescriptors];
+        
+        _defaultQuotes = [NSArray array];
     }
     
     return self;
@@ -75,7 +76,16 @@ static NSString *serverUrl = @"http://finance.yahoo.com/webservice/v1/";
 {
     NSArray *sym = [@"LNKD,AMZN,NFLX,FB,TWTR,YHOO,AAPL,INTC,GOOG" componentsSeparatedByString:@","];
     
-    [self getQuotesBySymbols:sym success:success failure:failure];
+    __weak typeof(self) weakSelf = self;
+    
+    [self getQuotesBySymbols:sym success:^(id object) {
+        __strong typeof(self) strongSelf = weakSelf;
+        strongSelf.defaultQuotes = (NSArray *)object;
+        
+        if (success) {
+            success(object);
+        }
+    } failure:failure];
 }
 
 - (void) getQuotesBySymbols:(NSArray *)symbols success:(YFSuccessBlock)success failure:(YFFailureBlock)failure;
@@ -92,17 +102,23 @@ static NSString *serverUrl = @"http://finance.yahoo.com/webservice/v1/";
 //                                     RKLogError(@"Operation failed with error: %@", error);
 //                                 }];
     
-    
     // Get a user by user name.
     [[YFApiCalls sharedCalls].objectManager getObject:[YFQuote quoteWithSymbolString:[symbols componentsJoinedByString:@","]] path:nil parameters:requestParametersDic
                                        success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                                            // Do something with mappingResult.array
+                                           RKLogInfo(@"Loaded collection of quotes: %@", mappingResult.array);
                                            
-                                           RKLogInfo(@"Load collection of quotes: %@", mappingResult.array);
+                                           if (success) {
+                                               success(mappingResult.array);
+                                           }
                                        }
                                        failure:^(RKObjectRequestOperation *operation, NSError *error) {
                                            // Do something
                                            RKLogError(@"Operation failed with error: %@", error);
+                                           
+                                           if (failure) {
+                                               failure(error);
+                                           }
                                        }];
 }
 
@@ -111,5 +127,6 @@ static NSString *serverUrl = @"http://finance.yahoo.com/webservice/v1/";
     
     
 }
+
 
 @end
