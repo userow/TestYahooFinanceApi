@@ -22,8 +22,8 @@
 
     // create a navigation controller and perform some simple styling
     self.navigationController = [UINavigationController new];
-    self.navigationController.navigationBar.barTintColor = [UIColor darkGrayColor];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor darkGrayColor]}];
     
     // create and navigate to a view controller
     UIViewController *viewController = [self createInitialViewController];

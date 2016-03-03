@@ -39,6 +39,34 @@ UISearchControllerDelegate> {
 
 @implementation YFInsexesTableViewController
 
+#pragma mark - view controller life cucle
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    //    [super viewDidDisappear:animated];
+    
+    [self loadApiData];
+    
+    [self registerForKeyboardNotifications];
+
+//    self.searchController.searchBar becomeFirstResponder
+    self.searchController.active = YES;
+    self.searchController.active = NO;
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    //    [super viewDidDisappear:animated];
+    
+    [self unRegisterFromKeyboardNotifications];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -76,14 +104,18 @@ UISearchControllerDelegate> {
 //    self.table.tableHeaderView = header;
     
     [self.searchContainerView addSubview:self.searchController.searchBar];
+    
+    self.definesPresentationContext = YES;
 //    [self.searchContainerView bringSubviewToFront:self.searchController.searchBar];
-    self.searchController.searchBar.clipsToBounds = YES;
-    [self.searchController.searchBar autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
+//    self.searchController.searchBar.clipsToBounds = YES;
+    
+//    [self.searchController.searchBar sizeToFit];
+//    [self.searchController.searchBar autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
     
 
     
     self.resultsTableController.tableView.delegate = self;
-    self.searchController.dimsBackgroundDuringPresentation = YES;
+    self.searchController.dimsBackgroundDuringPresentation = NO;
     
     self.searchController.searchBar.delegate = self;
     self.searchController.searchResultsUpdater = self;
@@ -206,26 +238,6 @@ UISearchControllerDelegate> {
     [UIView animateWithDuration:animationDuration animations:^{
         [self.view layoutIfNeeded];
     }];
-}
-
-#pragma mark - view controller life cucle
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    
-    [self loadApiData];
-    
-    [self registerForKeyboardNotifications];
-}
-
--(void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    
-    [self unRegisterFromKeyboardNotifications];
 }
 
 #pragma mark - Table view data source
