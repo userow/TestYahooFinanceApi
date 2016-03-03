@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface YFInsexesTableViewController : UITableViewController
+@interface YFInsexesTableViewController : UIViewController
 
 @end

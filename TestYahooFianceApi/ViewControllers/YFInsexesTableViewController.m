@@ -7,12 +7,33 @@
 //
 
 #import "YFInsexesTableViewController.h"
+
+#import "YFQuotesSearchResultsViewController.h"
+
 #import "YFApiCalls.h"
 #import "YFQuote.h"
 
-#import <MBProgressHUD.h>
+#import <SVProgressHUD.h>
+#import <UIView+AutoLayout.h>
 
 @interface YFInsexesTableViewController ()
+<UITableViewDelegate,
+UISearchBarDelegate,
+UISearchResultsUpdating,
+UISearchControllerDelegate> {
+    __block BOOL isSearching;
+    NSString *previousSearchText;
+}
+
+@property (strong, nonatomic) __block NSArray *defaultQuotes;
+
+@property (weak, nonatomic) IBOutlet UIView *searchContainerView;
+@property (weak, nonatomic) IBOutlet UITableView *table;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomConstraint;
+
+@property (strong, nonatomic) UISearchController *searchController;
+@property (nonatomic, strong) YFQuotesSearchResultsViewController *resultsTableController;
+
 
 @end
 
@@ -27,30 +48,184 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:NSStringFromClass([UITableViewCell class])];
+    [self setupUI];
     
-    self.title = @"Yahoo IT stock quotes";
+    [self setupSearch];
+    
+//    self.searchContainerView.backgroundColor = [UIColor redColor];
 }
 
--(void)viewDidAppear:(BOOL)animated {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+-(void)setupUI
+{
+    [self.table registerClass:[UITableViewCell class] forCellReuseIdentifier:NSStringFromClass([UITableViewCell class])];
+    self.table.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.title = @"Yahoo IT stock quotes";
+    self.navigationController.navigationBar.translucent = NO;
+    self.edgesForExtendedLayout = UIRectEdgeLeft | UIRectEdgeBottom | UIRectEdgeRight;
+}
+
+
+-(void)setupSearch {
+    _resultsTableController = [[YFQuotesSearchResultsViewController alloc] init];
+    _searchController = [[UISearchController alloc] initWithSearchResultsController:self.resultsTableController];
+    
+//    UIView *header = [UIView new];
+//    header.frame = CGRectMake(0, 0, self.view.frame.size.width, 44.0f);
+//    header.clipsToBounds = YES;
+//    [header addSubview:self.searchController.searchBar];
+//    self.table.tableHeaderView = header;
+    
+    [self.searchContainerView addSubview:self.searchController.searchBar];
+//    [self.searchContainerView bringSubviewToFront:self.searchController.searchBar];
+    self.searchController.searchBar.clipsToBounds = YES;
+    [self.searchController.searchBar autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
+    
+
+    
+    self.resultsTableController.tableView.delegate = self;
+    self.searchController.dimsBackgroundDuringPresentation = YES;
+    
+    self.searchController.searchBar.delegate = self;
+    self.searchController.searchResultsUpdater = self;
+    self.searchController.delegate = self;
+    
+    // Search Bar Customization
+    // Backgroud Color
+    self.searchController.searchBar.backgroundColor = [UIColor darkGrayColor];
+    
+    // Search Bar Cancel Button Color
+//    [[UIBarButtonItem appearanceWhenContainedIn: [UISearchBar class], nil] setTintColor:[UIColor drm_darkishPurpleColor]];
+    
+    // set Search Bar Search icon
+//    [self.searchController.searchBar setImage:[UIImage imageNamed:@"SearchBarIcon"]
+//                             forSearchBarIcon:UISearchBarIconSearch
+//                                        state:UIControlStateNormal];
+    
+    // set Search Bar texfield corder radius
+    UITextField *searchTextField = [self.searchController.searchBar valueForKey:@"_searchField"];
+    
+    searchTextField.layer.cornerRadius = 14.0f;
+    searchTextField.layer.shouldRasterize = YES;
+    searchTextField.layer.rasterizationScale = [UIScreen mainScreen].scale;
+    searchTextField.backgroundColor = [UIColor whiteColor];
+    searchTextField.placeholder = @"Search Quotes";
+    
+    if ([searchTextField respondsToSelector:@selector(setAttributedPlaceholder:)]) {
+        
+        NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
+        paragraphStyle.alignment                = NSTextAlignmentLeft;
+        
+        NSAttributedString *attributedString   =
+        [NSAttributedString.alloc initWithString:@"Search Quotes"
+                                      attributes:
+         @{NSParagraphStyleAttributeName:paragraphStyle,
+           NSForegroundColorAttributeName:[UIColor grayColor]}];
+        
+        [searchTextField setAttributedPlaceholder:attributedString];
+    }
+    
+    for (UIView *subview in self.searchController.searchBar.subviews) {
+        if ([subview isKindOfClass:NSClassFromString(@"UISearchBarBackground")]) {
+            [subview removeFromSuperview];
+            break;
+        }
+        
+        for (UIView *subsub in [subview subviews]) {
+            if ([subsub isKindOfClass:NSClassFromString(@"UISearchBarBackground")]) {
+                [subsub removeFromSuperview];
+                break;
+            }
+        }
+    }
+    self.definesPresentationContext = YES;
+}
+
+#pragma mark - data
+
+- (void) loadApiData {
+    [self showWithStatusSuccess];
     
     __weak typeof(self) weakSelf = self;
     [[YFApiCalls sharedCalls] getDefaultQuotesSuccess:^(id object) {
         __strong typeof(self) strongSelf = weakSelf;
-        [MBProgressHUD hideAllHUDsForView:strongSelf.view animated:YES];
+
+        strongSelf.defaultQuotes = (NSArray *)object;
+        [strongSelf reloadData];
         
-        [strongSelf.tableView reloadData];
+        [SVProgressHUD dismiss];
     } failure:^(NSError *error) {
-        __strong typeof(self) strongSelf = weakSelf;
-        [MBProgressHUD hideAllHUDsForView:strongSelf.view animated:YES];
-        ;
+        [SVProgressHUD dismiss];
     }];
 }
 
+- (void) reloadData {
+    [self.table reloadData];
+}
+
+#pragma mark - Keyboard
+
+- (void)registerForKeyboardNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+}
+
+- (void)unRegisterFromKeyboardNotifications {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillShowNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
+}
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    NSDictionary *info  = notification.userInfo;
+    NSValue *kbFrame    = info[UIKeyboardFrameEndUserInfoKey];
+    
+    NSTimeInterval animationDuration = [info[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    CGRect keyboardFrame    = [kbFrame CGRectValue];
+    CGFloat height          = keyboardFrame.size.height;
+    self.bottomConstraint.constant = height;
+    
+    [UIView animateWithDuration:animationDuration animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    NSDictionary *info                  = notification.userInfo;
+    NSTimeInterval animationDuration    = [info[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    
+    self.bottomConstraint.constant = 0;
+    [UIView animateWithDuration:animationDuration animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+#pragma mark - view controller life cucle
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [self loadApiData];
+    
+    [self registerForKeyboardNotifications];
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [self unRegisterFromKeyboardNotifications];
 }
 
 #pragma mark - Table view data source
@@ -60,7 +235,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [YFApiCalls sharedCalls].defaultQuotes.count;
+    return self.defaultQuotes.count;
 }
 
 
@@ -70,7 +245,7 @@
     if (!cell)
         cell = [UITableViewCell new];
     
-    YFQuote * q = [YFApiCalls sharedCalls].defaultQuotes[indexPath.row];
+    YFQuote * q = self.defaultQuotes[indexPath.row];
     
     cell.textLabel.numberOfLines = 0;
     cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
@@ -143,5 +318,70 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark - UISearchBarDelegate
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [searchBar resignFirstResponder];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    self.resultsTableController.searchedQuotes = nil;
+    [self.table reloadData];
+}
+
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    [self showWithStatusSuccess];
+    
+    NSString *searchText = [searchController.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *strippedString = [searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
+    if (strippedString.length > 0) {
+        
+        [self getSearchResults:searchText shouldReload:YES];
+    } else {
+        [SVProgressHUD dismiss];
+    }
+}
+
+- (void)didPresentSearchController:(UISearchController *)searchController {
+    [searchController.searchBar becomeFirstResponder];
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    
+}
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+    
+}
+
+
+- (void)showWithStatusSuccess {
+    if (![SVProgressHUD isVisible]) {
+        [SVProgressHUD show];
+    }
+}
+
+- (void)getSearchResults:(NSString*)searchString shouldReload:(BOOL)shouldReload {
+    YFQuotesSearchResultsViewController *tableController = (YFQuotesSearchResultsViewController *)self.searchController.searchResultsController;
+    
+    tableController.searching = NO;
+    
+#warning !!! Поставить обработку в ApiCalls
+//    [self sendSearchResuts:[_controller searchByString:searchString ]];
+}
+
+- (void)sendSearchResuts:(NSMutableArray *)searchResults {
+    YFQuotesSearchResultsViewController *tableController = (YFQuotesSearchResultsViewController *)self.searchController.searchResultsController;
+    tableController.searchedQuotes = searchResults;
+    [tableController reloadData];
+    [SVProgressHUD dismiss];
+    isSearching = NO;
+}
+
+- (void)didDismissSearchController:(UISearchController *)searchController {
+    //    if (isExiting)
+    //        [self.navigationController popViewControllerAnimated:YES];
+}
 
 @end

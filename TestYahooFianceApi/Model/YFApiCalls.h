@@ -13,7 +13,7 @@ typedef void (^YFFailureBlock)(NSError *error);
 
 @interface YFApiCalls : NSObject
 
-@property (atomic, strong) __block NSArray *defaultQuotes;
+//@property (atomic, strong) __block NSArray *defaultQuotes;
 
 + (YFApiCalls *)sharedCalls;
 

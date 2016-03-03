@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CDC518D71C88031600B27A25 /* YFEmptySearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC518D51C88031600B27A25 /* YFEmptySearchView.m */; };
+		CDC518D81C88031600B27A25 /* YFEmptySearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDC518D61C88031600B27A25 /* YFEmptySearchView.xib */; };
+		CDC518DB1C8803F200B27A25 /* YFQuotesSearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC518DA1C8803F200B27A25 /* YFQuotesSearchResultsViewController.m */; };
 		CDE276FD1C7D1568000B5630 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE276FC1C7D1568000B5630 /* main.m */; };
 		CDE277001C7D1568000B5630 /* YFAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE276FF1C7D1568000B5630 /* YFAppDelegate.m */; };
 		CDE2770B1C7D1568000B5630 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDE2770A1C7D1568000B5630 /* Assets.xcassets */; };
@@ -22,6 +25,11 @@
 		4E28026103511F018D47B34D /* Pods-TestYahooFianceApi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestYahooFianceApi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TestYahooFianceApi/Pods-TestYahooFianceApi.debug.xcconfig"; sourceTree = "<group>"; };
 		5F51816FE21A54681CE871D9 /* Pods_TestYahooFianceApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestYahooFianceApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		60BC78CCB8313487A7B33E97 /* Pods-TestYahooFianceApi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestYahooFianceApi.release.xcconfig"; path = "Pods/Target Support Files/Pods-TestYahooFianceApi/Pods-TestYahooFianceApi.release.xcconfig"; sourceTree = "<group>"; };
+		CDC518D41C88031600B27A25 /* YFEmptySearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YFEmptySearchView.h; sourceTree = "<group>"; };
+		CDC518D51C88031600B27A25 /* YFEmptySearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YFEmptySearchView.m; sourceTree = "<group>"; };
+		CDC518D61C88031600B27A25 /* YFEmptySearchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YFEmptySearchView.xib; sourceTree = "<group>"; };
+		CDC518D91C8803F200B27A25 /* YFQuotesSearchResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YFQuotesSearchResultsViewController.h; sourceTree = "<group>"; };
+		CDC518DA1C8803F200B27A25 /* YFQuotesSearchResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YFQuotesSearchResultsViewController.m; sourceTree = "<group>"; };
 		CDE276F81C7D1568000B5630 /* TestYahooFianceApi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestYahooFianceApi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDE276FC1C7D1568000B5630 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CDE276FE1C7D1568000B5630 /* YFAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YFAppDelegate.h; sourceTree = "<group>"; };
@@ -118,6 +126,11 @@
 				CDE277211C7D215A000B5630 /* YFInsexesTableViewController.h */,
 				CDE277221C7D215A000B5630 /* YFInsexesTableViewController.m */,
 				CDE277231C7D215A000B5630 /* YFInsexesTableViewController.xib */,
+				CDC518D91C8803F200B27A25 /* YFQuotesSearchResultsViewController.h */,
+				CDC518DA1C8803F200B27A25 /* YFQuotesSearchResultsViewController.m */,
+				CDC518D41C88031600B27A25 /* YFEmptySearchView.h */,
+				CDC518D51C88031600B27A25 /* YFEmptySearchView.m */,
+				CDC518D61C88031600B27A25 /* YFEmptySearchView.xib */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -195,6 +208,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CDE277251C7D215A000B5630 /* YFInsexesTableViewController.xib in Resources */,
+				CDC518D81C88031600B27A25 /* YFEmptySearchView.xib in Resources */,
 				CDE7F3951C84589F0097FFF5 /* YFLaunchScreen.xib in Resources */,
 				CDE2770B1C7D1568000B5630 /* Assets.xcassets in Resources */,
 			);
@@ -260,6 +274,8 @@
 				CDE277241C7D215A000B5630 /* YFInsexesTableViewController.m in Sources */,
 				CDE2772C1C7D3225000B5630 /* YFQuote.m in Sources */,
 				CDE277291C7D3191000B5630 /* YFApiCalls.m in Sources */,
+				CDC518D71C88031600B27A25 /* YFEmptySearchView.m in Sources */,
+				CDC518DB1C8803F200B27A25 /* YFQuotesSearchResultsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

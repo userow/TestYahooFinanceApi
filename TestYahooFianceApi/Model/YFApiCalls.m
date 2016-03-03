@@ -43,7 +43,7 @@ static NSString *serverUrl = @"http://finance.yahoo.com/webservice/v1/";
         self.objectManager = [RKObjectManager managerWithBaseURL:baseUrl];
         [self setupDescriptors];
         
-        _defaultQuotes = [NSArray array];
+//        _defaultQuotes = [NSArray array];
     }
     
     return self;
@@ -76,11 +76,11 @@ static NSString *serverUrl = @"http://finance.yahoo.com/webservice/v1/";
 {
     NSArray *sym = [@"LNKD,AMZN,NFLX,FB,TWTR,YHOO,AAPL,INTC,GOOG" componentsSeparatedByString:@","];
     
-    __weak typeof(self) weakSelf = self;
+//    __weak typeof(self) weakSelf = self;
     
     [self getQuotesBySymbols:sym success:^(id object) {
-        __strong typeof(self) strongSelf = weakSelf;
-        strongSelf.defaultQuotes = (NSArray *)object;
+//        __strong typeof(self) strongSelf = weakSelf;
+//        strongSelf.defaultQuotes = (NSArray *)object;
         
         if (success) {
             success(object);
@@ -93,7 +93,8 @@ static NSString *serverUrl = @"http://finance.yahoo.com/webservice/v1/";
     if (!(symbols && symbols.count)) return;
     
     NSDictionary *requestParametersDic = @{@"format":@"json", @"view" : @"detail", };
-    
+
+//// Using usual request, no operation
 //    [self.objectManager getObjectsAtPath:requestPathString
 //                              parameters:requestParametersDic
 //                                 success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
